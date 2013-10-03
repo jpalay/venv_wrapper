@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+# Josh Palay
+# Activates a virtual environment located in $home/venvs/
+
+# For this to work properly, I had to put 
+# alias activate=". activate" 
+# in my .bash_profile
+
+# Escape spaces
+home=$(echo $HOME | sed -e 's/\ /\\ /g')
+
+# if first parameter not set
+if [[ -z $1 ]]; then
+    echo "Usage: activate <virtual_environment>"
+# Does $home/venvs/ exist?
+elif [[ ! -d $home/venvs/ ]]; then
+    echo "$home/venvs/ does not exist or is not a directory"
+# Is $home/venvs/$1 a valid directory?
+elif [[ ! -d $home/venvs/$1 ]]; then
+    echo "$home/venvs/$1/ does not exist or is not a directory"
+# Does $home/venvs/$1/bin/activate exist?
+elif [[ ! -f $home/venvs/$1/bin/activate ]]; then
+    echo "$home/venvs/$1/bin/activate does not exist"
+else
+    source $home/venvs/$1/bin/activate
+fi

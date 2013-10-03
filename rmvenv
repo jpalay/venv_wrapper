@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+# Josh Palay
+# Deletes a virtual environment located in $home/venvs/
+
+# Escape spaces
+home=$(echo $HOME | sed -e 's/\ /\\ /g')
+
+# if first parameter not set
+if [[ -z $1 ]]; then
+    echo "Usage: rmvenv <virtual_environment>"
+# Does $home/venvs/ exist?
+elif [[ ! -d $home/venvs/ ]]; then
+    echo "$home/venvs/ does not exist or is not a directory"
+# Is $home/venvs/$1 a valid directory?
+elif [[ ! -d $home/venvs/$1 ]]; then
+    echo "$home/venvs/$1/ does not exist or is not a directory"
+else
+    echo "rm -r $home/venvs/$1"
+    rm -r $home/venvs/$1
+fi

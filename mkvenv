@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+# Josh Palay
+# Creates a virtual enviornment in ~/venvs/
+
+# Is the first parameter set?
+if [[ -z "$1" ]]; then
+    echo "Usage: mkvenv <virtualenv_name>"
+# Is ~/venvs a file?
+elif [[ -f ~/venvs ]]; then
+    echo "To use this wrapper, you must rename or remove ~/venvs"
+else
+    # Does ~/venvs/ exist?
+    if [[ ! -d ~/venvs ]]; then
+        echo "~/venvs does not exist, creating now..."
+        mkdir ~/venvs
+    fi
+    # Does ~/venvs/$1 already exist?
+    if [[ -e ~/venvs/$1 ]]; then
+        echo "~/venvs/$1 already exists"
+    else
+        echo "virtualenv ~/venvs/$1"
+        virtualenv ~/venvs/$1
+    fi
+fi

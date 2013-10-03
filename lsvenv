@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# Josh Palay
+# Lists all files and directories in ~/venvs/
+
+# Does ~/venvs/ exist?
+if [[ -d ~/venvs ]]; then
+    ls ~/venvs
+    exit
+fi
+echo "~/venvs is not a directory or does not exist"
