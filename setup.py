@@ -42,7 +42,7 @@ def edit_bash_profile(add_path_dir):
     bash_profile = HOME + '/.bash_profile'
 
     bin_lines = ('\n# Adding ~/bin/ to PATH\n'
-        'PATH=$HOME/bin/:$PATH\n')
+        'PATH=$HOME/bin:$PATH\n')
 
     activate_lines = ('\n# Added for virtualenv wrapper\n'
         'alias activate="source activate"\n'
