@@ -4,11 +4,12 @@ import shutil
 
 HOME = os.environ['HOME']
 
+
 def create_dir(dir_path):
-    '''
-    Create a directory, or don't if it already exists.  Fail if there's a 
+    """
+    Create a directory, or don't if it already exists.  Fail if there's a
     file there instead.
-    '''
+    """
     print 'Creating directory {0}...'.format(dir_path),
     if not os.path.exists(dir_path):
         os.makedirs(dir_path)
@@ -16,14 +17,15 @@ def create_dir(dir_path):
     elif os.path.isdir(dir_path):
         print 'directory already exists, skipping'
         return
-    else: # if file exists called dir_path
+    else:  # if file exists called dir_path
         print 'ERROR: {0} exists and is a file - aborting now'.format(dir_path)
         exit()
 
+
 def copy_file(src, dst):
-    '''
+    """
     Copies file from src to dst, or doesn't if a file already exists at dst
-    '''
+    """
     print 'Copying file {0} to {1}...'.format(src, dst),
     if os.path.exists(dst):
         print 'file already exists, skipping'
@@ -31,22 +33,23 @@ def copy_file(src, dst):
     else:
         shutil.copy(src, dst)
         print 'file copy successful'
-        
+
+
 def edit_bash_profile(add_path_dir):
-    '''
+    """
     Edits ~/.bash_profile to provide support for virtualenv wrapper.
     Adds ~/bin to system path if it's not there already, adds alias to make
     'activate' work properly, and provides support for autocomplete for
     the wrapper.
-    '''
+    """
     bash_profile = HOME + '/.bash_profile'
 
     bin_lines = ('\n# Adding ~/bin/ to PATH\n'
-        'PATH=$HOME/bin:$PATH\n')
+                 'PATH=$HOME/bin:$PATH\n')
 
     activate_lines = ('\n# Added for virtualenv wrapper\n'
-        'alias activate="source activate"\n'
-        'source ~/etc/activate-completion.bash\n')
+                      'alias activate="source activate"\n'
+                      'source ~/etc/activate-completion.bash\n')
 
     # Get contents of bash_profile, if it exists
     f = open(bash_profile, "a")
@@ -60,7 +63,8 @@ def edit_bash_profile(add_path_dir):
     print 'Adding {0} to system path...'.format(add_path_dir),
     path = os.environ['PATH'].split(':')
     if (add_path_dir in path) or (bin_lines in contents):
-        print '{0} already in system path, skipping this step'.format(add_path_dir)
+        print '{0} already in system path, skipping this step'.format(
+            add_path_dir)
     else:
         f.write(bin_lines)
         print 'done'
@@ -73,6 +77,7 @@ def edit_bash_profile(add_path_dir):
         f.write(activate_lines)
         print 'done'
     f.close()
+
 
 def main():
     bin_dir = HOME + '/bin/'
@@ -101,4 +106,5 @@ def main():
     edit_bash_profile(bin_dir)
     print 'Success! Open a new terminal window to start using virtualenvs!'
 
-main()
+if __name__ == '__main__':
+    main()
